@@ -8,7 +8,7 @@ import livereload from "rollup-plugin-livereload";
 const production = !process.env.ROLLUP_WATCH;
 
 const devPlugins = production ? [] : [
-    serve("public"),
+    serve({ contentBase: "public", port: 5000, }),
     livereload()
 ];
 
