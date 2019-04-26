@@ -2,8 +2,15 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
+import serve from "rollup-plugin-serve";
+import livereload from "rollup-plugin-livereload";
 
 const production = !process.env.ROLLUP_WATCH;
+
+const devPlugins = production ? [] : [
+    serve("public"),
+    livereload()
+];
 
 export default {
 	input: 'src/main.js',
@@ -14,6 +21,7 @@ export default {
 		file: 'public/bundle.js'
 	},
 	plugins: [
+        ...devPlugins,
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
